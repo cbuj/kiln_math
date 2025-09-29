@@ -45,3 +45,25 @@ fn point2_sub_assign_test() {
     assert_eq!(p1.y, 1);
 
 }
+
+#[test]
+fn point2_mul_test() {
+    todo!()
+}
+
+#[test]
+fn point2_mul_assign_test() {
+    todo!()
+}
+
+#[test]
+fn point2_div_test() {
+    todo!()
+}
+
+#[test]
+fn point2_div_assign_test() {
+    todo!()
+}
+
+
