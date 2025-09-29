@@ -1,10 +1,17 @@
 use rustle_math::Point2;
-use std::ops::{Add, AddAssign, Sub, SubAssign};
+use std::ops::{Add, AddAssign, Sub, SubAssign, Mul, MulAssign, Div, DivAssign};
 
 
 #[test]
 fn point2_impl_test() {
     let p = Point2::new(0, 0);
+    assert_eq!(p.x, 0);
+    assert_eq!(p.y, 0);
+}
+
+#[test]
+fn point2_zero_test() {
+    let p: Point2<i32> = Point2::zero();
     assert_eq!(p.x, 0);
     assert_eq!(p.y, 0);
 }
@@ -48,22 +55,38 @@ fn point2_sub_assign_test() {
 
 #[test]
 fn point2_mul_test() {
-    todo!()
+    let p1 = Point2::new(3, 3);
+    let p2 = Point2::new(2, 2);
+    let p3 = p1.mul(p2);
+    assert_eq!(p3.x, 6);
+    assert_eq!(p3.y, 6);
 }
 
 #[test]
 fn point2_mul_assign_test() {
-    todo!()
+    let mut p1 = Point2::new(3, 3);
+    let p2 = Point2::new(2, 2);
+    p1.mul_assign(p2);
+    assert_eq!(p1.x, 6);
+    assert_eq!(p1.y, 6);
 }
 
 #[test]
 fn point2_div_test() {
-    todo!()
+    let p1 = Point2::new(6, 6);
+    let p2 = Point2::new(2, 2);
+    let p3 = p1.div(p2);
+    assert_eq!(p3.x, 3);
+    assert_eq!(p3.y, 3);
 }
 
 #[test]
 fn point2_div_assign_test() {
-    todo!()
+    let mut p1 = Point2::new(6, 6);
+    let p2 = Point2::new(2, 2);
+    p1.div_assign(p2);
+    assert_eq!(p1.x, 3);
+    assert_eq!(p1.y, 3);
 }
 
 
