@@ -1,4 +1,4 @@
-use std::ops::{Add, AddAssign, Div, DivAssign, Mul, MulAssign, Sub, SubAssign};
+use std::{marker::PhantomData, ops::{Add, AddAssign, Div, DivAssign, Mul, MulAssign, Sub, SubAssign}};
 use num_traits::{Float, Zero};
 //--------
 // Point2
@@ -409,6 +409,18 @@ impl<T> Vector4<T> {
     }
 }
 
+//------------
+// EulerAngles
+//------------
+
+#[derive(Debug, Default, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct EulerAngles<T, B> {
+    pub a: T,
+    pub b: T,
+    pub c: T,
+    pub marker: PhantomData<B>
+
+}
 //-----------
 // Quaternion
 //-----------
@@ -556,3 +568,48 @@ impl<T> ColumnMatrix4<T> {
     }
 }
 
+//
+// ColumnMatrix2x3
+//
+
+#[derive(Debug, Default, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct ColumnMatrix2x3<T> {
+    pub x: Vector2<T>,
+    pub y: Vector2<T>,
+    pub z: Vector2<T>
+}
+
+#[derive(Debug, Default, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct ColumnMatrix2x4<T> {
+    pub x: Vector2<T>,
+    pub y: Vector2<T>,
+    pub z: Vector2<T>,
+    pub w: Vector2<T>
+}
+
+#[derive(Debug, Default, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct ColumMatrix3x2<T> {
+    pub x: Vector3<T>,
+    pub y: Vector3<T>
+}
+
+#[derive(Debug, Default, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct ColumnMatrix3x4<T> {
+    pub x: Vector3<T>,
+    pub y: Vector3<T>,
+    pub z: Vector3<T>,
+    pub w: Vector3<T>
+}
+
+#[derive(Debug, Default, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct ColumnMatrix4x2<T> {
+    pub x: Vector4<T>,
+    pub y: Vector4<T>
+}
+
+#[derive(Debug, Default, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct ColumnMatrix4x3<T> {
+    pub x: Vector4<T>,
+    pub y: Vector4<T>,
+    pub z: Vector4<T>
+}
