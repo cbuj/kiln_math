@@ -113,9 +113,9 @@ impl<T> DivAssign for Point2<T> where T: DivAssign<T> {
 
 #[derive(Debug, Default, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct Point3<T> {
-    x: T,
-    y: T,
-    z: T
+    pub x: T,
+    pub y: T,
+    pub z: T
 }
 
 impl<T> Point3<T> {
@@ -126,13 +126,16 @@ impl<T> Point3<T> {
             z
         }
     }
-    pub fn to_vector3(self) -> Vector3<T> {
-        Vector3 { 
-            x: self.x, 
-            y: self.y, 
-            z: self.z 
+}
+
+impl<T> Point3<T> where T: Zero {
+    pub fn zero() -> Self {
+        Self {
+            x: T::zero(),
+            y: T::zero(),
+            z: T::zero()
         }
-    } 
+    }
 }
 
 // Point3 Addition
