@@ -1,9 +1,11 @@
 use std::{marker::PhantomData, ops::{Add, AddAssign, Div, DivAssign, Mul, MulAssign, Sub, SubAssign}};
 use num_traits::{Float, Zero};
+
 //--------
 // Point2
 //--------
 
+#[repr(C)]
 #[derive(Debug, Default, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct Point2<T> {
     pub x: T,
@@ -571,10 +573,11 @@ impl<T> ColumnMatrix4<T> {
     }
 }
 
-//
+//----------------
 // ColumnMatrix2x3
-//
+//----------------
 
+#[repr(C)]
 #[derive(Debug, Default, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct ColumnMatrix2x3<T> {
     pub x: Vector2<T>,
@@ -582,6 +585,11 @@ pub struct ColumnMatrix2x3<T> {
     pub z: Vector2<T>
 }
 
+//----------------
+// ColumnMatrix2x4
+//----------------
+
+#[repr(C)]
 #[derive(Debug, Default, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct ColumnMatrix2x4<T> {
     pub x: Vector2<T>,
@@ -590,12 +598,22 @@ pub struct ColumnMatrix2x4<T> {
     pub w: Vector2<T>
 }
 
+//----------------
+// ColumnMatrix3x2
+//----------------
+
+#[repr(C)]
 #[derive(Debug, Default, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct ColumMatrix3x2<T> {
     pub x: Vector3<T>,
     pub y: Vector3<T>
 }
 
+//----------------
+// ColumnMatrix3x4
+//----------------
+
+#[repr(C)]
 #[derive(Debug, Default, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct ColumnMatrix3x4<T> {
     pub x: Vector3<T>,
@@ -604,15 +622,175 @@ pub struct ColumnMatrix3x4<T> {
     pub w: Vector3<T>
 }
 
+//----------------
+// ColumnMatrix4x2
+//----------------
+
+#[repr(C)]
 #[derive(Debug, Default, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct ColumnMatrix4x2<T> {
     pub x: Vector4<T>,
     pub y: Vector4<T>
 }
 
+//----------------
+// ColumnMatrix4x3
+//----------------
+
+#[repr(C)]
 #[derive(Debug, Default, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct ColumnMatrix4x3<T> {
     pub x: Vector4<T>,
     pub y: Vector4<T>,
     pub z: Vector4<T>
+}
+
+//-----------
+// RowMatrix2
+//-----------
+
+#[repr(C)]
+#[derive(Debug, Default, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct RowMatrix2<T> {
+    pub x: Vector2<T>,
+    pub y: Vector2<T>
+}
+
+impl<T> RowMatrix2<T> {
+    pub fn new(x: Vector2<T>, y: Vector2<T>) -> Self {
+        Self {
+            x,
+            y
+        }
+    }
+}
+
+//-----------
+// RowMatrix3
+//-----------
+
+#[repr(C)]
+#[derive(Debug, Default, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct RowMatrix3<T> {
+    pub x: Vector3<T>,
+    pub y: Vector3<T>,
+    pub z: Vector3<T>
+}
+
+impl<T> RowMatrix3<T> {
+    pub fn new(x: Vector3<T>, y: Vector3<T>, z: Vector3<T>) -> Self {
+        Self {
+            x,
+            y,
+            z
+        }
+    }
+}
+
+//-----------
+// RowMatrix4
+//-----------
+
+#[repr(C)]
+#[derive(Debug, Default, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct RowMatrix4<T> {
+    pub x: Vector4<T>,
+    pub y: Vector4<T>,
+    pub z: Vector4<T>,
+    pub w: Vector4<T>
+}
+
+impl<T> RowMatrix4<T> {
+    pub fn new(x: Vector4<T>, y: Vector4<T>, z: Vector4<T>, w: Vector4<T>) -> Self {
+        Self {
+            x,
+            y,
+            z,
+            w
+        }
+    }
+}
+
+//-------------
+// RowMatrix2x3
+//-------------
+
+#[repr(C)]
+#[derive(Debug, Default, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct RowMatrix2x3<T> {
+    pub x: Vector3<T>,
+    pub y: Vector3<T>
+}
+
+impl<T> RowMatrix2x3<T> {
+    pub fn new(x: Vector3<T>, y: Vector3<T>) -> Self {
+        Self {
+            x,
+            y
+        }
+    }
+}
+
+//-------------
+// RowMatrix2x4
+//-------------
+
+#[repr(C)]
+#[derive(Debug, Default, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct RowMatrix2x4<T> {
+    pub x: Vector4<T>,
+    pub y: Vector4<T>
+}
+
+impl<T> RowMatrix2x4<T> {
+    pub fn new(x: Vector4<T>, y: Vector4<T>) -> Self {
+        Self {
+            x,
+            y
+        }
+    }
+}
+
+//-------------
+// RowMatrix3x2
+//-------------
+
+#[repr(C)]
+#[derive(Debug, Default, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct RowMatrix3x2<T> {
+    pub x: Vector2<T>,
+    pub y: Vector2<T>,
+    pub z: Vector2<T>
+}
+
+impl<T> RowMatrix3x2<T> {
+    pub fn new(x: Vector2<T>, y: Vector2<T>, z: Vector2<T>) -> Self {
+        Self {
+            x,
+            y,
+            z
+        }
+    }
+}
+
+//-------------
+// RowMatrix3x4
+//-------------
+
+#[repr(C)]
+#[derive(Debug, Default, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct RowMatrix3x4<T> {
+    pub x: Vector4<T>,
+    pub y: Vector4<T>,
+    pub z: Vector4<T>
+}
+
+impl<T> RowMatrix3x4<T> {
+    pub fn new(x: Vector4<T>, y: Vector4<T>, z: Vector4<T>) -> Self {
+        Self {
+            x,
+            y,
+            z
+        }
+    }
 }
