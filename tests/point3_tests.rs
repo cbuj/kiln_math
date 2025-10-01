@@ -1,4 +1,4 @@
-use rustle_math::Point3;
+use rustle_math::point::Point3;
 use std::ops::*;
 
 #[test]

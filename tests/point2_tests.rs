@@ -1,4 +1,4 @@
-use rustle_math::Point2;
+use rustle_math::point::Point2;
 use std::ops::{Add, AddAssign, Sub, SubAssign, Mul, MulAssign, Div, DivAssign};
 
 
@@ -16,6 +16,40 @@ fn point2_zero_test() {
     assert_eq!(p.y, 0);
 }
 
+#[test]
+fn point2_one_test() {
+    let p: Point2<i32> = Point2::one();
+    assert_eq!(p.x, 1);
+    assert_eq!(p.y, 1);
+}
+
+#[test]
+fn point2_up_test() {
+    let p: Point2<i32> = Point2::up();
+    assert_eq!(p.x, 0);
+    assert_eq!(p.y, 1);
+}
+
+#[test]
+fn point2_right_test() {
+    let p: Point2<i32> = Point2::right();
+    assert_eq!(p.x, 1);
+    assert_eq!(p.y, 0);
+}
+
+#[test]
+fn point2_down_test() {
+    let p: Point2<i32> = Point2::down();
+    assert_eq!(p.x, 0);
+    assert_eq!(p.y, -1);
+}
+
+#[test]
+fn point2_left_test() {
+    let p: Point2<i32> = Point2::left();
+    assert_eq!(p.x, -1);
+    assert_eq!(p.y, 0);
+}
 #[test]
 fn point2_add_test() {
     let p1 = Point2::new(1,1);
