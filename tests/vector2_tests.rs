@@ -1,5 +1,5 @@
 use num_traits::Float;
-use rustle_math::vector::Vector2;
+use kiln_math::vector::Vector2;
 use std::ops::*;
 
 #[test]
