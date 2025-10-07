@@ -2,9 +2,8 @@ pub mod matrix;
 pub mod point;
 pub mod vector;
 
-use std::marker::PhantomData;
+use std::{marker::PhantomData};
 use vector::Vector3;
-
 
 
 

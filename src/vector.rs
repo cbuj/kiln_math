@@ -21,6 +21,21 @@ impl<T> Vector2<T> {
     }
 }
 
+impl<T> Vector2<T> where T: PartialOrd + Copy {
+    pub fn min(&self, rhs: &Self) -> Self {
+        Self {
+            x: if self.x.le(&rhs.x) {self.x} else {rhs.x},
+            y: if self.y.le(&rhs.y) {self.y} else {rhs.y}
+        }
+    }
+    pub fn max(&self, rhs: &Self) -> Self {
+        Self {
+            x: if self.x.ge(&rhs.x) {self.x} else {rhs.x},
+            y: if self.y.ge(&rhs.y) {self.y} else {rhs.y}
+        }
+    }
+}
+
 impl<T> Vector2<T> where T: Zero {
     pub fn zero() -> Self {
         Self {
