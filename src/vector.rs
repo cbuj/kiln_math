@@ -1,5 +1,5 @@
 use std::ops::{Add, AddAssign, Div, DivAssign, Mul, MulAssign, Neg, Rem, RemAssign, Sub, SubAssign};
-use num_traits::{Float, One, Zero};
+use num_traits::{Float, Num, One, Zero};
 
 //--------
 // Vector2
@@ -17,21 +17,6 @@ impl<T> Vector2<T> {
         Self {
             x, 
             y
-        }
-    }
-}
-
-impl<T> Vector2<T> where T: PartialOrd + Copy {
-    pub fn min(&self, rhs: &Self) -> Self {
-        Self {
-            x: if self.x.le(&rhs.x) {self.x} else {rhs.x},
-            y: if self.y.le(&rhs.y) {self.y} else {rhs.y}
-        }
-    }
-    pub fn max(&self, rhs: &Self) -> Self {
-        Self {
-            x: if self.x.ge(&rhs.x) {self.x} else {rhs.x},
-            y: if self.y.ge(&rhs.y) {self.y} else {rhs.y}
         }
     }
 }
@@ -84,9 +69,63 @@ impl<T> Vector2<T> where T: Zero + One + Neg<Output = T> {
     }    
 }
 
+impl<T> Vector2<T> where T: Ord + Copy {
+    pub fn min(self, rhs: Self) -> Self {
+        Self {
+            x: self.x.min(rhs.x),
+            y: self.y.min(rhs.y)
+        }
+    }
+    pub fn max(self, rhs: Self) -> Self {
+        Self {
+            x: self.x.max(rhs.x),
+            y: self.y.max(rhs.y)
+        }
+    }
+}
+
+impl<T> Vector2<T> where T: Num {
+    pub fn dot(self, rhs: Self) -> T {
+        self.x * rhs.x + self.y * rhs.y
+    }
+    pub fn cross(self, rhs: Self) -> T {
+        self.x * rhs.y - self.y * rhs.x
+    }
+}
+
+impl<T> Vector2<T> where T: Neg<Output = T> {
+    pub fn perpendicular(self) -> Self {
+        Self {
+            x: self.y.neg(),
+            y: self.x
+        }
+    }
+}
+
 impl<T> Vector2<T> where T: Float {
     pub fn magnitude(self) -> T {
         (self.x * self.x + self.y * self.y).sqrt()
+    }
+    pub fn square_magnitude(self) -> T {
+        self.x * self.x + self.y * self.y
+    }
+    pub fn clamp_magnitude(self, min_length: T, max_length: T) -> Self {
+        let magnitude = self.magnitude();
+        if magnitude.is_zero() {
+            Self::zero()
+        } else if magnitude < min_length {
+            self * Self {
+                x: min_length / magnitude, 
+                y: min_length / magnitude
+            }
+        } else if magnitude > max_length {
+            self * Self {
+                x: max_length / magnitude, 
+                y: max_length / magnitude
+            }
+        } else {
+            self
+        }
     }
     pub fn normalize(self) -> Self {
         let m = self.magnitude();
@@ -99,11 +138,46 @@ impl<T> Vector2<T> where T: Float {
             }
         }
     }
-    pub fn dot(self, rhs: Self) -> T {
-        self.x * rhs.x + self.y * rhs.y
+    pub fn distance(self, rhs: Self) -> T {
+        self.sub(rhs).magnitude()
     }
-    pub fn cross(self, rhs: Self) -> T {
-        self.x * rhs.y - self.y * rhs.x
+    pub fn project(self, rhs: Self) -> Self {
+        let dot = self.dot(rhs);
+        let rhs_square_magnitude = rhs.square_magnitude();
+        if rhs_square_magnitude.is_zero() {
+            Self::zero()
+        } else {
+            rhs * Self {
+                x: dot / rhs_square_magnitude,
+                y: dot / rhs_square_magnitude
+            }
+        }
+    }
+    pub fn reflect(self, normal: Self) -> Self {
+        let projection = self.project(normal);
+        self.sub(projection.add(projection))
+    }
+    pub fn lerp(self, rhs: Self, t: T) -> Self {
+        let t = if t < T::zero() {
+            T::zero()
+        } else if t > T::one() {
+            T::one()
+        } else {
+            t
+        };
+        self.lerp_unclamped(rhs, t)
+    }
+    pub fn lerp_unclamped(self, rhs: Self, t: T) -> Self {
+        self.add(rhs.sub(self).mul(Self {x: t, y: t}))
+    }
+    pub fn angle(self, rhs: Self) -> T {
+        let dot = self.dot(rhs);
+        let mags = self.magnitude() * rhs.magnitude();
+        if mags.is_zero() {
+            T::zero()
+        } else {
+            (dot / mags).acos()
+        }
     }
 }
 

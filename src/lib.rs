@@ -2,11 +2,9 @@ pub mod matrix;
 pub mod point;
 pub mod vector;
 
+use std::fmt::Debug;
 use std::{marker::PhantomData};
 use vector::Vector3;
-
-
-
 
 //------------
 // EulerAngles
@@ -29,4 +27,5 @@ pub struct Quaternion<T> {
     pub v: Vector3<T>,
     pub s: T
 }
+
 

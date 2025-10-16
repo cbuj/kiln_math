@@ -16,6 +16,61 @@ fn point3_zero_test() {
     assert_eq!(p.y, 0);
     assert_eq!(p.z, 0);
 }
+#[test]
+fn point3_one_test() {
+    let p: Point3<i32> = Point3::one();
+    assert_eq!(p.x, 1);
+    assert_eq!(p.y, 1);
+    assert_eq!(p.z, 1);
+}
+
+#[test]
+fn point3_right_test() {
+    let p: Point3<i32> = Point3::right();
+    assert_eq!(p.x, 1);
+    assert_eq!(p.y, 0);
+    assert_eq!(p.z, 0);
+}
+
+#[test]
+fn point3_up_test() {
+    let p: Point3<i32> = Point3::up();
+    assert_eq!(p.x, 0);
+    assert_eq!(p.y, 1);
+    assert_eq!(p.z, 0);
+}
+
+#[test]
+fn point3_forward_test() {
+    let p: Point3<i32> = Point3::forward();
+    assert_eq!(p.x, 0);
+    assert_eq!(p.y, 0);
+    assert_eq!(p.z, 1);
+}
+
+#[test]
+fn point3_left_test() {
+    let p: Point3<i32> = Point3::left();
+    assert_eq!(p.x, -1);
+    assert_eq!(p.y, 0);
+    assert_eq!(p.z, 0);
+}
+
+#[test]
+fn point3_down_test() {
+    let p: Point3<i32> = Point3::down();
+    assert_eq!(p.x, 0);
+    assert_eq!(p.y, -1);
+    assert_eq!(p.z, 0);
+}
+
+#[test]
+fn point3_backward_test() {
+    let p: Point3<i32> = Point3::backward();
+    assert_eq!(p.x, 0);
+    assert_eq!(p.y, 0);
+    assert_eq!(p.z, -1);
+}
 
 #[test]
 fn point3_add_test() {
@@ -95,4 +150,24 @@ fn point3_div_assign_test() {
     assert_eq!(p1.x, 3);
     assert_eq!(p1.y, 3);
     assert_eq!(p1.z, 3);
+}
+
+#[test]
+fn point3_rem_test() {
+    let p1 = Point3::new(7, 7, 7);
+    let p2 = Point3::new(3, 3, 3);
+    let p3 = p1.rem(p2);
+    assert_eq!(p3.x, 1);
+    assert_eq!(p3.y, 1);
+    assert_eq!(p3.z, 1);
+}
+
+#[test]
+fn point3_rem_assign_test() {
+    let mut p1 = Point3::new(7, 7, 7);
+    let p2 = Point3::new(3, 3, 3);
+    p1.rem_assign(p2);
+    assert_eq!(p1.x, 1);
+    assert_eq!(p1.y, 1);
+    assert_eq!(p1.z, 1);
 }
