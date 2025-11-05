@@ -23,6 +23,20 @@ impl<T> Matrix2<T> {
             n21, n22
         }
     }
+    pub fn get_row(self, index: usize) -> Option<Vector2<T>> {
+        match index {
+            0 => Some(Vector2 { x: self.n11, y: self.n12 }),
+            1 => Some(Vector2 { x: self.n21, y: self.n22 }),
+            _ => None
+        }
+    }
+    pub fn get_column(self, index: usize) -> Option<Vector2<T>> {
+        match index {
+            0 => Some(Vector2 { x: self.n11, y: self.n21 }),
+            1 => Some(Vector2 { x: self.n12, y: self.n22 }),
+            _ => None
+        }
+    }
 }
 
 impl<T> Matrix2<T> where T: Zero {
