@@ -6,6 +6,8 @@ pub mod quaternion;
 use std::fmt::Debug;
 use std::{marker::PhantomData};
 
+use num_traits::Num;
+
 //------------
 // EulerAngles
 //------------
