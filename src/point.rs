@@ -1,3 +1,5 @@
+// point.rs
+
 use std::ops::{Add, AddAssign, Div, DivAssign, Mul, MulAssign, Neg, Rem, RemAssign, Sub, SubAssign};
 use num_traits::{One, Zero};
 
@@ -68,8 +70,6 @@ impl<T> Point2<T> where T: Zero + One + Neg<Output = T> {
         }
     }
 }
-
-
 
 // Point2 Addition
 
@@ -170,9 +170,29 @@ impl<T> RemAssign for Point2<T> where T: RemAssign<T> {
     }
 }
 
-//-------
+// Point2 mint implentations
+
+impl<T> From<Point2<T>> for mint::Point2<T> {
+    fn from(point: Point2<T>) -> Self {
+        Self {
+            x: point.x,
+            y: point.y
+        }
+    }
+}
+
+impl<T> From<mint::Point2<T>> for Point2<T> {
+    fn from(point: mint::Point2<T>) -> Self {
+        Self {
+            x: point.x,
+            y: point.y
+        }
+    }
+}
+
+//--------
 // Point3
-//-------
+//--------
 
 #[repr(C)]
 #[derive(Debug, Default, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -366,5 +386,27 @@ impl<T> RemAssign for Point3<T> where T: RemAssign<T> {
         self.x %= rhs.x;
         self.y %= rhs.y;
         self.z %= rhs.z;
+    }
+}
+
+// Point3 mint implentations
+
+impl<T> From<Point3<T>> for mint::Point3<T> {
+    fn from(point: Point3<T>) -> Self {
+        Self {
+            x: point.x,
+            y: point.y,
+            z: point.z
+        }
+    }
+}
+
+impl<T> From<mint::Point3<T>> for Point3<T> {
+    fn from(point: mint::Point3<T>) -> Self {
+        Self {
+            x: point.x,
+            y: point.y,
+            z: point.z
+        }
     }
 }

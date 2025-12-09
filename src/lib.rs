@@ -6,8 +6,6 @@ pub mod quaternion;
 use std::fmt::Debug;
 use std::{marker::PhantomData};
 
-use num_traits::Num;
-
 //------------
 // EulerAngles
 //------------
@@ -18,7 +16,6 @@ pub struct EulerAngles<T, B> {
     pub b: T,
     pub c: T,
     pub marker: PhantomData<B>
-
 }
 
 

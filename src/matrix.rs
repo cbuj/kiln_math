@@ -60,6 +60,43 @@ impl<T> Matrix2<T> where T: One {
         }
     }
 }
+
+impl<T> Into<ColumnMatrix2<T>> for Matrix2<T> {
+    fn into(self) -> ColumnMatrix2<T> {
+        ColumnMatrix2 { 
+            x: Vector2::new(self.n11, self.n21),
+            y: Vector2::new(self.n12, self.n22)
+        }
+    }
+}
+
+impl<T> Into<RowMatrix2<T>> for Matrix2<T> {
+    fn into(self) -> RowMatrix2<T> {
+        RowMatrix2 { 
+            x: Vector2::new(self.n11, self.n12), 
+            y: Vector2::new(self.n21, self.n22)
+        }
+    }
+}
+
+impl<T> From<ColumnMatrix2<T>> for Matrix2<T> {
+    fn from(column_matrix: ColumnMatrix2<T>) -> Self {
+        Self {
+            n11: column_matrix.x.x, n12: column_matrix.y.x,
+            n21: column_matrix.x.y, n22: column_matrix.y.y
+        }
+    } 
+}
+
+impl<T> From<RowMatrix2<T>> for Matrix2<T> {
+    fn from(row_matrix: RowMatrix2<T>) -> Self {
+        Self {
+            n11: row_matrix.x.x, n12: row_matrix.x.y,
+            n21: row_matrix.y.x, n22: row_matrix.y.y
+        }
+    }
+}
+
 // Matrix2 Addition
 
 impl<T> Add for Matrix2<T> where T: Add<Output = T> {
@@ -193,8 +230,8 @@ pub struct Matrix3<T> {
 }
 
 impl<T> Matrix3<T> {
-        pub fn new(
-     n11: T, n12: T, n13: T,
+    pub fn new(
+        n11: T, n12: T, n13: T,
         n21: T, n22: T, n23: T,
         n31: T, n32: T, n33: T
     ) -> Self {
@@ -202,6 +239,22 @@ impl<T> Matrix3<T> {
          n11, n12, n13,
             n21, n22, n23,
             n31, n32, n33
+        }
+    }
+    pub fn get_row(self, index: usize) -> Option<Vector3<T>> {
+        match index {
+            0 => Some(Vector3::new(self.n11, self.n12, self.n13)),
+            1 => Some(Vector3::new(self.n21, self.n22, self.n23)),
+            2 => Some(Vector3::new(self.n31, self.n32, self.n33)),
+            _ => None
+        }
+    }
+    pub fn get_column(self, index: usize) -> Option<Vector3<T>> {
+        match index {
+            0 => Some(Vector3::new(self.n11, self.n21, self.n31)),
+            1 => Some(Vector3::new(self.n12, self.n22, self.n32)),
+            2 => Some(Vector3::new(self.n13, self.n23, self.n33)),
+            _ => None
         }
     }
 }
@@ -234,6 +287,46 @@ impl<T> Matrix3<T> where T: One {
             n31: T::one(),
             n32: T::one(),
             n33: T::one()
+        }
+    }
+}
+
+impl<T> Into<ColumnMatrix3<T>> for Matrix3<T> {
+    fn into(self) -> ColumnMatrix3<T> {
+        ColumnMatrix3 { 
+            x: Vector3::new(self.n11, self.n21, self.n31), 
+            y: Vector3::new(self.n12, self.n22, self.n32), 
+            z: Vector3::new(self.n13, self.n23, self.n33)
+        }
+    }
+}
+
+impl<T> Into<RowMatrix3<T>> for Matrix3<T> {
+    fn into(self) -> RowMatrix3<T> {
+        RowMatrix3 { 
+            x: Vector3::new(self.n11, self.n12, self.n13),
+            y: Vector3::new(self.n21, self.n22, self.n23),
+            z: Vector3::new(self.n31, self.n32, self.n33)
+        }
+    }
+}
+
+impl<T> From<ColumnMatrix3<T>> for Matrix3<T> {
+    fn from(column_matrix: ColumnMatrix3<T>) -> Self {
+        Self {
+            n11: column_matrix.x.x, n12: column_matrix.y.x, n13: column_matrix.z.x,
+            n21: column_matrix.x.y, n22: column_matrix.y.y, n23: column_matrix.z.y,
+            n31: column_matrix.x.z, n32: column_matrix.y.z, n33: column_matrix.z.z
+        }
+    }
+}
+
+impl<T> From<RowMatrix3<T>> for Matrix3<T> {
+    fn from(row_matrix: RowMatrix3<T>) -> Self {
+        Self {
+            n11: row_matrix.x.x, n12: row_matrix.x.y, n13: row_matrix.x.z,
+            n21: row_matrix.y.x, n22: row_matrix.y.y, n23: row_matrix.y.z,
+            n31: row_matrix.z.x, n32: row_matrix.z.y, n33: row_matrix.z.z
         }
     }
 }
@@ -479,6 +572,50 @@ impl<T> Matrix4<T> where T: One {
             n42: T::one(),
             n43: T::one(),
             n44: T::one()           
+        }
+    }
+}
+
+impl<T> Into<ColumnMatrix4<T>> for Matrix4<T> {
+    fn into(self) -> ColumnMatrix4<T> {
+        ColumnMatrix4 { 
+            x: Vector4::new(self.n11, self.n21, self.n31, self.n41),
+            y: Vector4::new(self.n12, self.n22, self.n32, self.n42),
+            z: Vector4::new(self.n13, self.n23, self.n33, self.n43),
+            w: Vector4::new(self.n14, self.n24, self.n34, self.n44)
+        }
+    }
+}
+
+impl<T> Into<RowMatrix4<T>> for Matrix4<T> {
+    fn into(self) -> RowMatrix4<T> {
+        RowMatrix4 {
+            x: Vector4::new(self.n11, self.n12, self.n13, self.n14),
+            y: Vector4::new(self.n21, self.n22, self.n23, self.n24),
+            z: Vector4::new(self.n31, self.n32, self.n33, self.n34),
+            w: Vector4::new(self.n41, self.n42, self.n43, self.n44)
+        }
+    }
+}
+
+impl<T> From<ColumnMatrix4<T>> for Matrix4<T> {
+    fn from(column_matrix: ColumnMatrix4<T>) -> Self {
+        Self {
+            n11: column_matrix.x.x, n12: column_matrix.y.x, n13: column_matrix.z.x, n14: column_matrix.w.x,
+            n21: column_matrix.x.y, n22: column_matrix.y.y, n23: column_matrix.z.y, n24: column_matrix.w.y,
+            n31: column_matrix.x.z, n32: column_matrix.y.z, n33: column_matrix.z.z, n34: column_matrix.w.z,
+            n41: column_matrix.x.w, n42: column_matrix.y.w, n43: column_matrix.z.w, n44: column_matrix.w.w
+        }
+    }
+}
+
+impl<T> From<RowMatrix4<T>> for Matrix4<T> {
+    fn from(row_matrix: RowMatrix4<T>) -> Self {
+        Self {
+            n11: row_matrix.x.x, n12: row_matrix.x.y, n13: row_matrix.x.z, n14: row_matrix.x.w,
+            n21: row_matrix.y.x, n22: row_matrix.y.y, n23: row_matrix.y.z, n24: row_matrix.y.w,
+            n31: row_matrix.z.x, n32: row_matrix.z.y, n33: row_matrix.z.z, n34: row_matrix.z.w,
+            n41: row_matrix.w.x, n42: row_matrix.w.y, n43: row_matrix.w.z, n44: row_matrix.w.w
         }
     }
 }
@@ -741,6 +878,43 @@ impl<T> ColumnMatrix2<T> {
         }
     }
 }
+
+impl<T> ColumnMatrix2<T> where T: Zero {
+    pub fn zero() -> Self {
+        Self {
+            x: Vector2::zero(),
+            y: Vector2::zero()
+        }
+    }
+}
+
+impl<T> ColumnMatrix2<T> where T: One {
+    pub fn one() -> Self {
+        Self {
+            x: Vector2::one(),
+            y: Vector2::one()
+        }
+    }
+}
+
+impl<T> Into<RowMatrix2<T>> for ColumnMatrix2<T> {
+    fn into(self) -> RowMatrix2<T> {
+        RowMatrix2 { 
+            x: Vector2::new(self.x.x, self.y.x), 
+            y: Vector2::new(self.x.y, self.y.y)
+        }
+    }
+}
+
+impl<T> From<RowMatrix2<T>> for ColumnMatrix2<T> {
+    fn from(row_matrix: RowMatrix2<T>) -> Self {
+        Self {
+            x: Vector2::new(row_matrix.x.x, row_matrix.y.x),
+            y: Vector2::new(row_matrix.x.y, row_matrix.y.y)
+        }
+    }
+}
+
 //--------------
 // ColumnMatrix3
 //--------------
@@ -758,6 +932,46 @@ impl<T> ColumnMatrix3<T> {
             x,
             y,
             z
+        }
+    }
+}
+
+impl<T> ColumnMatrix3<T> where T: Zero {
+    pub fn zero() -> Self {
+        Self {
+            x: Vector3::zero(),
+            y: Vector3::zero(),
+            z: Vector3::zero()
+        }
+    }
+}
+
+impl<T> ColumnMatrix3<T> where T: One {
+    pub fn one() -> Self {
+        Self {
+            x: Vector3::one(),
+            y: Vector3::one(),
+            z: Vector3::one()
+        }
+    }
+}
+
+impl<T> Into<RowMatrix3<T>> for ColumnMatrix3<T> {
+    fn into(self) -> RowMatrix3<T> {
+        RowMatrix3 { 
+            x: Vector3::new(self.x.x, self.y.x, self.z.x),
+            y: Vector3::new(self.x.y, self.y.y, self.z.y),
+            z: Vector3::new(self.x.z, self.y.z, self.z.z)
+        }
+    }
+}
+
+impl<T> From<RowMatrix3<T>> for ColumnMatrix3<T> {
+    fn from(row_matrix: RowMatrix3<T>) -> Self {
+        Self {
+            x: Vector3::new(row_matrix.x.x, row_matrix.y.x, row_matrix.z.x),
+            y: Vector3::new(row_matrix.x.y, row_matrix.y.y, row_matrix.z.y),
+            z: Vector3::new(row_matrix.x.z, row_matrix.y.z, row_matrix.z.z)
         }
     }
 }
@@ -785,6 +999,49 @@ impl<T> ColumnMatrix4<T> {
     }
 }
 
+impl<T> ColumnMatrix4<T> where T: Zero {
+    pub fn zero() -> Self {
+        Self {
+            x: Vector4::zero(),
+            y: Vector4::zero(),
+            z: Vector4::zero(),
+            w: Vector4::zero()
+        }
+    }
+}
+
+impl<T> ColumnMatrix4<T> where T: One {
+    pub fn one() -> Self {
+        Self {
+            x: Vector4::one(),
+            y: Vector4::one(),
+            z: Vector4::one(),
+            w: Vector4::one()
+        }
+    }
+}
+
+impl<T> Into<RowMatrix4<T>> for ColumnMatrix4<T> {
+    fn into(self) -> RowMatrix4<T> {
+        RowMatrix4 { 
+            x: Vector4::new(self.x.x, self.y.x, self.z.x, self.w.x),
+            y: Vector4::new(self.x.y, self.y.y, self.z.y, self.w.y),
+            z: Vector4::new(self.x.z, self.y.z, self.z.z, self.w.z),
+            w: Vector4::new(self.x.w, self.y.w, self.z.w, self.w.w)
+        }
+    }
+}
+impl<T> From<RowMatrix4<T>> for ColumnMatrix4<T> {
+    fn from(row_matrix: RowMatrix4<T>) -> Self {
+        Self {
+            x: Vector4::new(row_matrix.x.x, row_matrix.y.x, row_matrix.z.x, row_matrix.w.x),
+            y: Vector4::new(row_matrix.x.y, row_matrix.y.y, row_matrix.z.y, row_matrix.w.y),
+            z: Vector4::new(row_matrix.x.z, row_matrix.y.z, row_matrix.z.z, row_matrix.w.z),
+            w: Vector4::new(row_matrix.x.w, row_matrix.y.w, row_matrix.z.w, row_matrix.w.w)
+        }
+    }
+}
+
 //----------------
 // ColumnMatrix2x3
 //----------------
@@ -795,6 +1052,36 @@ pub struct ColumnMatrix2x3<T> {
     pub x: Vector2<T>,
     pub y: Vector2<T>,
     pub z: Vector2<T>
+}
+
+impl<T> ColumnMatrix2x3<T> {
+    pub fn new(x: Vector2<T>, y: Vector2<T>, z: Vector2<T>) -> Self {
+        Self {
+            x,
+            y,
+            z
+        }
+    }
+}
+
+impl<T> ColumnMatrix2x3<T> where T: Zero {
+    pub fn zero() -> Self {
+        Self {
+            x: Vector2::zero(),
+            y: Vector2::zero(),
+            z: Vector2::zero()
+        }
+    }
+}
+
+impl<T> ColumnMatrix2x3<T> where T: One {
+    pub fn one() -> Self {
+        Self {
+            x: Vector2::one(),
+            y: Vector2::one(),
+            z: Vector2::one()
+        }
+    }
 }
 
 //----------------
@@ -873,6 +1160,24 @@ impl<T> RowMatrix2<T> {
         Self {
             x,
             y
+        }
+    }
+}
+
+impl<T> RowMatrix2<T> where T: Zero {
+    pub fn zero() -> Self {
+        Self {
+            x: Vector2::zero(),
+            y: Vector2::zero()
+        }
+    }
+}
+
+impl<T> RowMatrix2<T> where T: One {
+    pub fn one() -> Self {
+        Self {
+            x: Vector2::one(),
+            y: Vector2::one()
         }
     }
 }

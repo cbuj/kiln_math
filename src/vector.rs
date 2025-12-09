@@ -279,6 +279,24 @@ impl<T> RemAssign for Vector2<T> where T: RemAssign<T> {
     }
 }
 
+impl<T> From<Vector2<T>> for mint::Vector2<T> {
+    fn from(vector: Vector2<T>) -> Self {
+        Self {
+            x: vector.x,
+            y: vector.y
+        }
+    }
+}
+
+impl<T> From<mint::Vector2<T>> for Vector2<T> {
+    fn from(vector: mint::Vector2<T>) -> Self {
+        Self {
+            x: vector.x,
+            y: vector.y
+        }
+    }
+}
+
 //--------
 // Vector3
 //--------
@@ -470,12 +488,6 @@ impl<T> Vector3<T> where T: Float {
     pub fn lerp_unclamped(self, rhs: Self, t: T) -> Self {
         self.sub(rhs.sub(self).mul(Self {x: t, y: t, z: t}))
     }
-    pub fn slerp(self, rhs: Self, min_length: T, max_length: T) -> Self {
-        todo!()
-    }
-    pub fn slerp_unclamped(self, rhs: Self) -> Self {
-        todo!()
-    }
     pub fn angle(self, rhs: Self) -> T {
         let dot = self.dot(rhs);
         let mags = self.magnitude() * rhs.magnitude();
@@ -594,6 +606,26 @@ impl<T> RemAssign for Vector3<T> where T: RemAssign<T> {
         self.x %= rhs.x;
         self.y %= rhs.y;
         self.z %= rhs.z;
+    }
+}
+
+impl<T> From<Vector3<T>> for mint::Vector3<T> {
+    fn from(vector: Vector3<T>) -> Self {
+        Self {
+            x: vector.x,
+            y: vector.y,
+            z: vector.z
+        }
+    } 
+}
+
+impl<T> From<mint::Vector3<T>> for Vector3<T> {
+    fn from(vector: mint::Vector3<T>) -> Self {
+        Self {
+            x: vector.x,
+            y: vector.y,
+            z: vector.z
+        }
     }
 }
 
@@ -846,5 +878,27 @@ impl<T> RemAssign for Vector4<T> where T: RemAssign<T> {
         self.y %= rhs.y;
         self.z %= rhs.z;
         self.w %= rhs.w;
+    }
+}
+
+impl<T> From<Vector4<T>> for mint::Vector4<T> {
+    fn from(vector: Vector4<T>) -> Self {
+        Self {
+            x: vector.x,
+            y: vector.y,
+            z: vector.z,
+            w: vector.w
+        }
+    }
+}
+
+impl<T> From<mint::Vector4<T>> for Vector4<T> {
+    fn from(vector: mint::Vector4<T>) -> Self {
+        Self {
+            x: vector.x,
+            y: vector.y,
+            z: vector.z,
+            w: vector.w
+        }
     }
 }

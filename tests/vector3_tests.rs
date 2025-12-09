@@ -94,22 +94,34 @@ fn vector3_max_test() {
 
 #[test]
 fn vector3_dot_test() {
-    todo!()
+    let v1 = Vector3::new(2, 2, 2);
+    let v2 = Vector3::new(3, 3, 3);
+    let s = v1.dot(v2);
+    assert_eq!(s, 18);
 }
 
 #[test]
 fn vector3_cross_test() {
-    todo!()
+    let v1 = Vector3::new(1.0, 2.0, 3.0);
+    let v2 = Vector3::new(3.0, 2.0, 1.0);
+    let v3 = v1.cross(v2);
+    assert_eq!(v3.x, -4.0);
+    assert_eq!(v3.y, 8.0);
+    assert_eq!(v3.z, -4.0);
 }
 
 #[test]
 fn vector3_magnitude_test() {
-    todo!()
+    let v = Vector3::new(2.0, 4.0, 4.0);
+    let m = v.magnitude();
+    assert_eq!(m, 6.0);
 }
 
 #[test]
 fn vector3_square_magnitude_test() {
-    todo!()
+    let v = Vector3::new(2.0, 4.0, 4.0);
+    let m = v.magnitude();
+    assert_eq!(m, 36.0)
 }
 
 #[test]
