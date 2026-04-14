@@ -1,4 +1,7 @@
+use std::ops::{Add, AddAssign, Div, DivAssign, Mul, MulAssign, Rem, RemAssign, Sub, SubAssign};
 use num_traits::{Num, One, Zero};
+
+#[derive(Debug, Clone, Copy)]
 pub struct Point2<S> {
     pub x: S,
     pub y: S
@@ -69,3 +72,92 @@ impl<S> Point2<S> where S: One {
     }
 }
 
+impl<S: Add<Output = S>> Add for Point2<S> {
+    type Output = Self;
+
+    fn add(self, rhs: Self) -> Self::Output {
+        Self {
+            x: self.x + rhs.x,
+            y: self.y + rhs.y
+        }
+    }
+}
+
+impl<S: Add<Output = S> + AddAssign> AddAssign for Point2<S> {
+    fn add_assign(&mut self, rhs: Self) {
+        self.x += rhs.x;
+        self.y += rhs.y;
+    }
+}
+
+impl<S: Sub<Output = S>> Sub for Point2<S> {
+    type Output = Self;
+
+    fn sub(self, rhs: Self) -> Self::Output {
+        Self {
+            x: self.x - rhs.x,
+            y: self.y - rhs.y
+        }
+    }
+}
+
+impl<S: Sub<Output = S> + SubAssign> SubAssign for Point2<S> {
+    fn sub_assign(&mut self, rhs: Self) {
+        self.x -= rhs.x;
+        self.y -= rhs.y;
+    }
+}
+
+impl<S: Mul<Output = S>> Mul for Point2<S> {
+    type Output = Self;
+
+    fn mul(self, rhs: Self) -> Self::Output {
+        Self {
+            x: self.x * rhs.x,
+            y: self.y * rhs.y
+        }
+    }
+}
+
+impl<S: Mul<Output = S> + MulAssign> MulAssign for Point2<S> {
+    fn mul_assign(&mut self, rhs: Self) {
+        self.x *= rhs.x;
+        self.y *= rhs.y;
+    }
+}
+
+impl<S: Div<Output = S>> Div for Point2<S> {
+    type Output = Self;
+
+    fn div(self, rhs: Self) -> Self::Output {
+        Self {
+            x: self.x / rhs.x,
+            y: self.y / rhs.y
+        }
+    }
+}
+
+impl<S: Div<Output = S> + DivAssign> DivAssign for Point2<S> {
+    fn div_assign(&mut self, rhs: Self) {
+        self.x /= rhs.x;
+        self.y /= rhs.y;
+    }
+}
+
+impl<S: Rem<Output = S>> Rem for Point2<S> {
+    type Output = Self;
+
+    fn rem(self, rhs: Self) -> Self::Output {
+        Self {
+            x: self.x % rhs.x,
+            y: self.y % rhs.y
+        }
+    }
+}
+
+impl<S: Rem<Output = S> + RemAssign> RemAssign for Point2<S> {
+    fn rem_assign(&mut self, rhs: Self) {
+        self.x %= rhs.x;
+        self.y %= rhs.y;
+    }
+}
