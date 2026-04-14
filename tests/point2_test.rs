@@ -8,6 +8,20 @@ fn new() {
 }
 
 #[test]
+fn eq() {
+    let pa: Point2<f32> = Point2::new(2.0f32, 2.0f32);
+    let pb: Point2<f32> = Point2::new(3.0f32, 3.0f32);
+    assert!(!pa.eq(&pb));
+}
+
+#[test]
+fn ne() {
+    let pa: Point2<f32> = Point2::new(2.0f32, 2.0f32);
+    let pb: Point2<f32> = Point2::new(3.0f32, 3.0f32);
+    assert!(pa.ne(&pb));
+}
+
+#[test]
 fn zero() {
     let p2: Point2<f32> = Point2::zero();
     assert_eq!(p2.x, 0.0f32);

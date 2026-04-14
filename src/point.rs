@@ -13,6 +13,22 @@ impl<S> Point2<S> {
     }
 }
 
+impl<S> Point2<S> where S: PartialEq {
+    pub fn eq(&self, other: &Self) -> bool {
+        if self.x.eq(&other.x) && self.y.eq(&other.y) {
+            return true;
+        }
+        return false;
+    }
+
+    pub fn ne(&self, other: &Self) -> bool {
+        if self.x.ne(&other.x) && self.y.ne(&other.y) {
+            return true;
+        }
+        return false;
+    }
+}
+
 impl<S> Point2<S> where S: Zero {
     pub fn zero() -> Self {
         Self {
@@ -52,3 +68,4 @@ impl<S> Point2<S> where S: One {
         self.y.set_one();
     }
 }
+
